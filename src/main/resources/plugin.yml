@@ -1,0 +1,7 @@
+name: ${project.name}
+version: ${project.version}
+main: com.cursedplanet.cursedlibrary.LibraryPlugin
+author: Scuffi
+description: Cursed library
+api-version: 1.14
+#depend: [ SmartInvs ]

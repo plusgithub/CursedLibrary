@@ -1,0 +1,35 @@
+#
+#      Plugin: CursedLibrary
+#      File:   config.yml
+#      Author: Scuffi
+#      Details:
+#      - Edits all the changeable settings for CursedLibrary
+#      - All messages support <title>, <actionbar>, <bossbar> and <toast> prefixes for special messages
+#      - Messages support default minecraft colours and hex colours using #xxxxxx
+#
+prefix: '&8[&cCursedLibrary&8] &r'
+collections:
+  menu_name: '&bItem Collection'
+  menu_information_item: NETHER_STAR
+  menu_information_item_name: '&b&nInformation'
+  menu_information_item_lore:
+    - ''
+    - '&7This is the collection menu'
+    - '&7collect items here'
+  multicollect_item: CHEST
+  multicollect_name: '&c&lTake all'
+  multicollect_lore:
+    - ''
+    - '&7This is the collection menu'
+    - '&7take all items by clicking here'
+  empty_menu_item: RED_STAINED_GLASS_PANE
+  empty_menu_item_name: '&c&lYou have no items to collect!'
+  empty_menu_item_lore:
+    - 'You can get items by opening chests, trades, etc'
+    - 'line 2'
+  item_added_collect: '&aYour inventory was full so your item has been added to your overflow &7&o(/collect)'
+  items_added_collect: '&aYour inventory was full so {amount} {item/items} {has/have} been added to your overflow &7&o(/collect)'
+  remove_command: "&aRemoved the item in your hand from {player}'s collection list"
+  add_command: "&aAdded the item in your hand to {player}'s collection list"
+  clear_command: "&aCleared {player}'s collection list"
+  view_command: "&aOpened {player}'s collection menu"
