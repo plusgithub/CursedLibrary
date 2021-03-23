@@ -214,13 +214,14 @@
                                 <includes>
                                     <include>org.mineacademy:Game*</include>
                                     <include>com.github.kangarko:Foundation*</include>
+                                    <include>org.mineacademy:foundation*</include>
                                     <include>fr.minuskube.inv:smart-invs*</include>
                                 </includes>
                                 <excludes>
                                     <exclude>org.mineacademy:GameAPI*</exclude>
                                 </excludes>
                             </artifactSet>
-                            <relocations>
+                            <!-- <relocations>
                                 <relocation>
                                     <pattern>org.mineacademy</pattern>
                                     <shadedPattern>${project.groupId}.${project.artifactId}.lib</shadedPattern>
@@ -231,7 +232,7 @@
                                         <exclude>org.mineacademy.worldeditbridge.*</exclude>
                                     </excludes>
                                 </relocation>
-                            </relocations>
+                            </relocations> -->
                         </configuration>
                     </execution>
                 </executions>
