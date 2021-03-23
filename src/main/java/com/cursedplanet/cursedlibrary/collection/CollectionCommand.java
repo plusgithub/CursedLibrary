@@ -1,7 +1,7 @@
 package com.cursedplanet.cursedlibrary.collection;
 
 import org.bukkit.entity.Player;
-import org.mineacademy.fo.command.SimpleCommand;
+import com.cursedplanet.cursedlibrary.lib.command.SimpleCommand;
 
 public class CollectionCommand extends SimpleCommand {
 

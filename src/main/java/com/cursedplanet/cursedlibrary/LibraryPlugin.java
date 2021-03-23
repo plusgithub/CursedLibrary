@@ -6,9 +6,9 @@ import com.cursedplanet.cursedlibrary.collection.CollectionLoader;
 import com.cursedplanet.cursedlibrary.collection.command.CollectionsParent;
 import com.cursedplanet.cursedlibrary.pluginchecker.JoinChecker;
 import fr.minuskube.inv.InventoryManager;
-import org.mineacademy.fo.Common;
-import org.mineacademy.fo.model.HookManager;
-import org.mineacademy.fo.plugin.SimplePlugin;
+import com.cursedplanet.cursedlibrary.lib.Common;
+import com.cursedplanet.cursedlibrary.lib.model.HookManager;
+import com.cursedplanet.cursedlibrary.lib.plugin.SimplePlugin;
 
 public class LibraryPlugin extends SimplePlugin {
 

@@ -2,7 +2,7 @@ package com.cursedplanet.cursedlibrary.nbt;
 
 import com.google.gson.internal.LinkedTreeMap;
 import org.bukkit.inventory.ItemStack;
-import org.mineacademy.fo.remain.nbt.NBTItem;
+import com.cursedplanet.cursedlibrary.lib.remain.nbt.NBTItem;
 
 import java.util.HashMap;
 

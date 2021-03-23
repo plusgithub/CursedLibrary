@@ -10,9 +10,9 @@ import fr.minuskube.inv.content.SlotIterator;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.mineacademy.fo.Common;
-import org.mineacademy.fo.menu.model.ItemCreator;
-import org.mineacademy.fo.remain.CompMaterial;
+import com.cursedplanet.cursedlibrary.lib.Common;
+import com.cursedplanet.cursedlibrary.lib.menu.model.ItemCreator;
+import com.cursedplanet.cursedlibrary.lib.remain.CompMaterial;
 
 import java.util.List;
 

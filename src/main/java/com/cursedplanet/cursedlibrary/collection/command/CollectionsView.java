@@ -4,9 +4,9 @@ import com.cursedplanet.cursedlibrary.collection.CollectMenu;
 import com.cursedplanet.cursedlibrary.collection.CollectionLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.mineacademy.fo.Common;
-import org.mineacademy.fo.command.SimpleCommandGroup;
-import org.mineacademy.fo.command.SimpleSubCommand;
+import com.cursedplanet.cursedlibrary.lib.Common;
+import com.cursedplanet.cursedlibrary.lib.command.SimpleCommandGroup;
+import com.cursedplanet.cursedlibrary.lib.command.SimpleSubCommand;
 
 public class CollectionsView extends SimpleSubCommand {
 

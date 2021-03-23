@@ -1,7 +1,7 @@
 package com.cursedplanet.cursedlibrary.collection.command;
 
-import org.mineacademy.fo.command.SimpleCommandGroup;
-import org.mineacademy.fo.command.SimpleSubCommand;
+import com.cursedplanet.cursedlibrary.lib.command.SimpleCommandGroup;
+import com.cursedplanet.cursedlibrary.lib.command.SimpleSubCommand;
 
 public class CollectionsReload extends SimpleSubCommand {
 

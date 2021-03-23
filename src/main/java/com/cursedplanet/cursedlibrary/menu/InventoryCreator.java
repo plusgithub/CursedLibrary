@@ -5,8 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.mineacademy.fo.Common;
-import org.mineacademy.fo.remain.CompMaterial;
+import com.cursedplanet.cursedlibrary.lib.Common;
+import com.cursedplanet.cursedlibrary.lib.remain.CompMaterial;
 
 /**
  * Represents a way to render the inventory to the player

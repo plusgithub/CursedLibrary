@@ -90,12 +90,17 @@
             <url>http://maven.elmakers.com/repository/</url>
         </repository>
 
+        <repository>
+            <id>mineacademy-repo</id>
+            <url>https://bitbucket.org/kangarko/libraries/raw/master</url>
+        </repository>
+
     </repositories>
 
     <!--
        Configure what other libraries or plugins are we going to use in this plugin.
        As a starting point, we are importing the Spigot API and Foundation.
-   -->
+    -->
     <dependencies>
 
         <!--
@@ -121,14 +126,28 @@
 
         <!--
            Import the Foundation library to kickstart our plugin development
-       -->
+
         <dependency>
             <groupId>com.github.kangarko</groupId>
             <artifactId>Foundation</artifactId>
             <version>${foundation.version}</version>
-            <!-- Include Foundation and its dependencies. There are exceptions, see shade plugin below -->
             <scope>compile</scope>
         </dependency>
+        -->
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.3</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>fr.minuskube.inv</groupId>
@@ -137,19 +156,148 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>15.0</version>
+        </dependency>
+
+
+        <!--- This is all the plugin required for hooking -->
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>AuthMe</artifactId>
+            <version>5.6.0-SNAPSHOT-2418</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>CitizensAPI</artifactId>
+            <version>2.0.27-b691</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>CMI-API</artifactId>
+            <version>7.6.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>DiscordSRV</artifactId>
+            <version>1.19.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>EssentialsX</artifactId>
+            <version>2.18.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>Factions</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>FactionsUUID</artifactId>
+            <version>1.6.9.5-U0.5.17-b237</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>Jobs</artifactId>
+            <version>4.16.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>LandsAPI</artifactId>
+            <version>4.10.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>LWC</artifactId>
+            <version>2.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>MassiveCore</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>mcMMO</artifactId>
+            <version>2.1.157</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>Multiverse-Core</artifactId>
+            <version>4.1.1-SNAPSHOT-787</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>NuVotifier</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>PlaceholderAPI</artifactId>
+            <version>2.10.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.6.0-SNAPSHOT-b473</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>Residence</artifactId>
+            <version>4.9.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>SimpleClans</artifactId>
+            <version>2.14.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>StackMob</artifactId>
+            <version>5.3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>Towny</artifactId>
+            <version>0.96.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>TownyChat</artifactId>
+            <version>0.82</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>WorldEdit</artifactId>
+            <version>7.2.0-SNAPSHOT-5202</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>WorldGuard</artifactId>
+            <version>7.0.4-SNAPSHOT-2061</version>
+        </dependency>
+
     </dependencies>
 
     <!--
        Configure what happens when we are building this project (Maven compiles our code into bytecode
        for us automatically).
-   -->
+    -->
     <build>
 
         <!--
            When we are building your plugins, what plugins should we use during this process?
            The plugins here extend the functionality of Maven, just like your plugin enhances Minecraft
            These are not Minecraft plugins, but only Maven plugins!
-       -->
+        -->
         <plugins>
 
             <!--
@@ -200,15 +348,15 @@
                             <finalName>${project.name}-${project.version}</finalName>
                             <artifactSet>
                                 <includes>
-                                    <include>org.mineacademy:Game*</include>
-                                    <include>com.github.kangarko:Foundation*</include>
+                                    <!-- <include>org.mineacademy:Game*</include>
+                                     <include>com.github.kangarko:Foundation*</include>-->
                                     <include>fr.minuskube.inv:smart-invs*</include>
                                 </includes>
-                                <excludes>
-                                    <exclude>org.mineacademy:GameAPI*</exclude>
-                                </excludes>
+                                <!-- <excludes>
+                                     <exclude>org.mineacademy:GameAPI*</exclude>
+                            </excludes> -->
                             </artifactSet>
-                            <relocations>
+                            <!--<relocations>
                                 <relocation>
                                     <pattern>org.mineacademy</pattern>
                                     <shadedPattern>${project.groupId}.${project.artifactId}.lib</shadedPattern>
@@ -219,7 +367,7 @@
                                         <exclude>org.mineacademy.worldeditbridge.*</exclude>
                                     </excludes>
                                 </relocation>
-                            </relocations>
+                            </relocations> -->
                         </configuration>
                     </execution>
                 </executions>
@@ -227,12 +375,12 @@
         </plugins>
 
         <!--
-           During the build, we are going to scan all files in src/main/resources
-           folder such as plugin.yml and your settings files and replace all variables
-           such as ${main.class} with their proper values.
-           You can use native variables such as ${project.X} or the ones you defined above
-           in the properties section.
-       -->
+        During the build, we are going to scan all files in src/main/resources
+        folder such as plugin.yml and your settings files and replace all variables
+        such as ${main.class} with their proper values.
+        You can use native variables such as ${project.X} or the ones you defined above
+        in the properties section.
+        -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

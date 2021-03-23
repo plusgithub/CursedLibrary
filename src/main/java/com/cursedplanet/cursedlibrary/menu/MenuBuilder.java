@@ -2,7 +2,7 @@ package com.cursedplanet.cursedlibrary.menu;
 
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
-import org.mineacademy.fo.Common;
+import com.cursedplanet.cursedlibrary.lib.Common;
 
 public class MenuBuilder {
 

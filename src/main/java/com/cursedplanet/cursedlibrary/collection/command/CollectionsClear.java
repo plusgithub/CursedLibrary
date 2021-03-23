@@ -4,8 +4,8 @@ import com.cursedplanet.cursedlibrary.collection.CollectionLoader;
 import com.cursedplanet.cursedlibrary.collection.CollectionStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.mineacademy.fo.command.SimpleCommandGroup;
-import org.mineacademy.fo.command.SimpleSubCommand;
+import com.cursedplanet.cursedlibrary.lib.command.SimpleCommandGroup;
+import com.cursedplanet.cursedlibrary.lib.command.SimpleSubCommand;
 
 public class CollectionsClear extends SimpleSubCommand {
 
