@@ -7,11 +7,9 @@
     <!--
        We use Maven to build our plugin and Maven uses pom.xml to configure
        itself.
-
        This file is the heart and matter of everything that has to do
        with how your plugin connects with other libraries and exports itself
        when you want to publish it.
-
        Please only edit options below, as the above declaration is machine
        generated and not intended for user changes.
    -->
@@ -22,13 +20,10 @@
 
     <!--
        The Group ID represents the main package of your plugin
-
        The Artifact ID represents the name of your plugin.
        Traditionally, it is suggested to keep this name lowercase.
        If your plugin uses spaces, please replace them with dashes (-) instead.
-
        The Name represents the full name of your plugin
-
        The Version is current version of your plugin. You want to update this continuously
    -->
 
@@ -43,7 +38,6 @@
        Configure some of the Maven settings. We also define
        our new variables here such as the main class or Java version
        for our plugin.
-
        You can use those variables in your src/resources folder. See
        plugin.yml folder there for example usage.
    -->
@@ -66,13 +60,11 @@
        Configure where should Maven look for other libraries and plugins we
        want to use in our plugin. Those libraries and plugins can you then
        reference below in the dependencies section.
-
        Each repository has two parts - the id and url. The id does not
        really matter, however the URL must contain a valid Maven repository
        where the dependency is "installed" (that's why we call the goal "install"
        because we want to install our plugin on our PC as well so that we can
        use it in our other plugins together without linking it as a dependency)
-
        By default we use the Spigot repository for Spigot and the central Maven
        repo for many other plugins.
    -->
@@ -102,14 +94,12 @@
 
     <!--
        Configure what other libraries or plugins are we going to use in this plugin.
-
        As a starting point, we are importing the Spigot API and Foundation.
    -->
     <dependencies>
 
         <!--
            Import the Spigot API since it's necessary for our plugin
-
            Make sure you change the version to the latest version you want to use for your plugin.
        -->
         <dependency>
@@ -122,7 +112,6 @@
             <!--
                The scope indicates if this library should be packaged together with our plugin
                when we want to publish it.
-
                Set this to "compile" if you want all classes from this library to be copied
                to your plugin's jar, otherwise set this to "provided".
            -->
@@ -158,7 +147,6 @@
 
         <!--
            When we are building your plugins, what plugins should we use during this process?
-
            The plugins here extend the functionality of Maven, just like your plugin enhances Minecraft
            These are not Minecraft plugins, but only Maven plugins!
        -->
@@ -203,25 +191,24 @@
                         <!--
                             By default we configure the Foundation to include itself and all classes when
                             we set the scope to compile (see above).
-
                             There are many libraries from Foundation we will not need to use, and here
                             can you specify which ones to exclude. Please leave the default ones as they are.
                        -->
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
                             <finalName>${project.name}-${project.version}</finalName>
                             <artifactSet>
                                 <includes>
                                     <include>org.mineacademy:Game*</include>
                                     <include>com.github.kangarko:Foundation*</include>
-                                    <include>org.mineacademy:foundation*</include>
                                     <include>fr.minuskube.inv:smart-invs*</include>
                                 </includes>
                                 <excludes>
                                     <exclude>org.mineacademy:GameAPI*</exclude>
                                 </excludes>
                             </artifactSet>
-                            <!-- <relocations>
+                            <relocations>
                                 <relocation>
                                     <pattern>org.mineacademy</pattern>
                                     <shadedPattern>${project.groupId}.${project.artifactId}.lib</shadedPattern>
@@ -232,18 +219,10 @@
                                         <exclude>org.mineacademy.worldeditbridge.*</exclude>
                                     </excludes>
                                 </relocation>
-                            </relocations> -->
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
         </plugins>
 
@@ -251,7 +230,6 @@
            During the build, we are going to scan all files in src/main/resources
            folder such as plugin.yml and your settings files and replace all variables
            such as ${main.class} with their proper values.
-
            You can use native variables such as ${project.X} or the ones you defined above
            in the properties section.
        -->
