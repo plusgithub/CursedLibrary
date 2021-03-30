@@ -1,8 +1,8 @@
 package com.cursedplanet.cursedlibrary.nbt;
 
+import com.cursedplanet.cursedlibrary.lib.remain.nbt.NBTItem;
 import com.google.gson.internal.LinkedTreeMap;
 import org.bukkit.inventory.ItemStack;
-import com.cursedplanet.cursedlibrary.lib.remain.nbt.NBTItem;
 
 import java.util.HashMap;
 
@@ -23,9 +23,8 @@ public class CursedNBT {
 		mapID = mainID;
 	}
 
-	protected ItemStack setMap() {
+	protected void setMap() {
 		nbtItem.setObject("CURSEDPLANET", map);
-		return nbtItem.getItem();
 	}
 
 	public boolean hasMap() {
@@ -46,17 +45,21 @@ public class CursedNBT {
 		return temp.get(key);
 	}
 
-	public ItemStack setItemValue(String key, Object value) {
+	public void setItemValue(String key, Object value) {
 		LinkedTreeMap<Object, Object> temp = getItemMap();
 		temp.put(key, value);
 		map.put(mapID, temp);
-		return setMap();
+		setMap();
 	}
 
-	public ItemStack clearItemValue(String key) {
+	public void clearItemValue(String key) {
 		LinkedTreeMap<Object, Object> temp = getItemMap();
 		temp.remove(key);
 		map.put(mapID, temp);
-		return setMap();
+		setMap();
+	}
+
+	public ItemStack getItemStack() {
+		return nbtItem.getItem();
 	}
 }
