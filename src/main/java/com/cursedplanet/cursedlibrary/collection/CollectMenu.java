@@ -1,6 +1,9 @@
 package com.cursedplanet.cursedlibrary.collection;
 
 import com.cursedplanet.cursedlibrary.LibraryPlugin;
+import com.cursedplanet.cursedlibrary.lib.Common;
+import com.cursedplanet.cursedlibrary.lib.menu.model.ItemCreator;
+import com.cursedplanet.cursedlibrary.lib.remain.CompMaterial;
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
@@ -10,9 +13,6 @@ import fr.minuskube.inv.content.SlotIterator;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import com.cursedplanet.cursedlibrary.lib.Common;
-import com.cursedplanet.cursedlibrary.lib.menu.model.ItemCreator;
-import com.cursedplanet.cursedlibrary.lib.remain.CompMaterial;
 
 import java.util.List;
 
@@ -73,7 +73,6 @@ public class CollectMenu implements InventoryProvider {
 			contents.set(3, 5, ClickableItem.of(ItemCreator.of(CompMaterial.LIME_DYE, "&aNext page").build().makeSurvival(),
 					e -> INVENTORY.open(player, page + 1)));
 		}
-
 		if (page == 0) {
 			contents.set(3, 3, ClickableItem.empty(ItemCreator.of(CompMaterial.GRAY_DYE, "&7This is the first page").build().makeSurvival()));
 		} else {
