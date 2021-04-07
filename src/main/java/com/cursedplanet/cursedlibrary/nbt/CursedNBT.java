@@ -10,7 +10,7 @@ public class CursedNBT {
 
 	protected final NBTItem nbtItem;
 	protected static HashMap<String, LinkedTreeMap<Object, Object>> map = new HashMap<>();
-	protected String mapID;
+	protected final String mapID;
 
 	public CursedNBT(String mainID, ItemStack item) {
 		NBTItem tempItem = new NBTItem(item);
@@ -19,7 +19,7 @@ public class CursedNBT {
 		} else {
 			map = tempItem.getObject("CURSEDPLANET", HashMap.class);
 		}
-		this.nbtItem = tempItem;
+		nbtItem = tempItem;
 		mapID = mainID;
 	}
 
