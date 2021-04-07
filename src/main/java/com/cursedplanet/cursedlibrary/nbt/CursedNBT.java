@@ -9,13 +9,13 @@ import java.util.HashMap;
 public class CursedNBT {
 
 	protected NBTItem nbtItem;
-	protected static HashMap<String, LinkedTreeMap<Object, Object>> map = new HashMap<>();
+	protected static HashMap<String, LinkedTreeMap<Object, Object>> map;
 	protected String mapID;
 
 	public CursedNBT(String mainID, ItemStack item) {
 		NBTItem tempItem = new NBTItem(item);
 		if (!tempItem.hasKey("CURSEDPLANET")) {
-			//map = new HashMap<>();
+			map = new HashMap<>();
 			tempItem.setObject("CURSEDPLANET", new HashMap<>());
 		} else {
 			map = tempItem.getObject("CURSEDPLANET", HashMap.class);
