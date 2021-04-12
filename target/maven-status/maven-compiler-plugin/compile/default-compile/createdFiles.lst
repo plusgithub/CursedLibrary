@@ -8,7 +8,6 @@ com\cursedplanet\cursedlibrary\collection\CollectMenu.class
 com\cursedplanet\cursedlibrary\lib\remain\nbt\WrapperVersion.class
 com\cursedplanet\cursedlibrary\lib\model\PlaceholderAPIHook.class
 com\cursedplanet\cursedlibrary\LibraryPlugin.class
-com\cursedplanet\cursedlibrary\menu\MenuBuilder.class
 com\cursedplanet\cursedlibrary\lib\event\SimpleEvent.class
 com\cursedplanet\cursedlibrary\lib\remain\CompBiome.class
 com\cursedplanet\cursedlibrary\lib\PotionWrapper.class
@@ -30,7 +29,6 @@ com\cursedplanet\cursedlibrary\collection\command\CollectionsClear.class
 com\cursedplanet\cursedlibrary\lib\collection\expiringmap\ExpiringMap$EntryTreeHashMap$ValueIterator.class
 com\cursedplanet\cursedlibrary\lib\constants\FoConstants.class
 com\cursedplanet\cursedlibrary\lib\model\Variables.class
-com\cursedplanet\cursedlibrary\menu\InventoryCreator.class
 com\cursedplanet\cursedlibrary\lib\plugin\FoundationListener.class
 com\cursedplanet\cursedlibrary\lib\model\RangedValue.class
 com\cursedplanet\cursedlibrary\lib\ReflectionUtil$ReflectionException.class
@@ -161,6 +159,7 @@ com\cursedplanet\cursedlibrary\lib\model\LiteBansHook.class
 com\cursedplanet\cursedlibrary\lib\remain\internal\ParticleInternals.class
 com\cursedplanet\cursedlibrary\lib\remain\Remain$InteractiveTextFoundException.class
 com\cursedplanet\cursedlibrary\lib\visual\VisualizedRegion$1.class
+com\cursedplanet\cursedlibrary\menu\TempMenuTest.class
 com\cursedplanet\cursedlibrary\lib\remain\CompMetadata$MetadataFile.class
 com\cursedplanet\cursedlibrary\lib\settings\SimpleLocalization$Menu.class
 com\cursedplanet\cursedlibrary\lib\Common$MapToMapConverter.class
@@ -178,6 +177,7 @@ com\cursedplanet\cursedlibrary\lib\remain\CompMonsterEgg.class
 com\cursedplanet\cursedlibrary\collection\CollectionStorage.class
 com\cursedplanet\cursedlibrary\lib\model\BoxedMessage$1.class
 com\cursedplanet\cursedlibrary\lib\menu\MenuPagged$1.class
+com\cursedplanet\cursedlibrary\menu\TestTwoMenu.class
 com\cursedplanet\cursedlibrary\colour\ColourLib.class
 com\cursedplanet\cursedlibrary\lib\region\Region.class
 com\cursedplanet\cursedlibrary\lib\menu\button\ButtonRemove$RemoveConfirmButton.class
@@ -297,6 +297,7 @@ com\cursedplanet\cursedlibrary\lib\collection\expiringmap\ExpirationPolicy.class
 com\cursedplanet\cursedlibrary\lib\Valid.class
 com\cursedplanet\cursedlibrary\lib\remain\internal\ChatInternals.class
 com\cursedplanet\cursedlibrary\lib\remain\nbt\NBTList$2.class
+com\cursedplanet\cursedlibrary\menu\MenuHandler.class
 com\cursedplanet\cursedlibrary\lib\model\SimpleComponent$Part.class
 com\cursedplanet\cursedlibrary\lib\model\SimpleEnchantmentTarget$19.class
 com\cursedplanet\cursedlibrary\lib\model\RangedRandomValue.class

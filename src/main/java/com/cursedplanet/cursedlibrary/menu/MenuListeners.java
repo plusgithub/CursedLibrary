@@ -3,38 +3,113 @@ package com.cursedplanet.cursedlibrary.menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.Inventory;
-import com.cursedplanet.cursedlibrary.lib.Common;
+import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.Objects;
 
 public class MenuListeners implements Listener {
 
-	protected static HashMap<String, List<Integer>> lockedSlots = new HashMap<>();
-	protected static HashMap<UUID, List<Integer>> currentInv = new HashMap<>();
-
-	@EventHandler
-	public void onMenuClose(InventoryCloseEvent event) {
-		Player player = (Player) event.getPlayer();
-		CursedMenu.stopRunnables(player);
-	}
-
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		Inventory inv = event.getClickedInventory();
-		String id = event.getWhoClicked().getOpenInventory().getTitle().contains("ID:") ? event.getWhoClicked().getOpenInventory().getTitle().split("ID:")[1] : "";
-		Common.tell(event.getWhoClicked(), id);
-		if (lockedSlots.get(id).contains(event.getSlot()))
-			event.setCancelled(true);
+		if (event.getClickedInventory() != null) {
+			Player player = (Player) event.getWhoClicked();
+			if (MenuHandler.isViewing(player)) {
+
+				CursedMenu menu = MenuHandler.getInventory((Player) event.getWhoClicked());
+
+				if (!event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+
+					if (menu.updateTask != null)
+						menu.updateTask.run();
+
+					//Check for locked slots
+					if (menu.lockedSlots.get(event.getSlot()))
+						event.setCancelled(true);
+
+					//Check for clickable items
+					if (menu.slotRunnables.get(event.getSlot()) != null) {
+						menu.slotRunnables.get(event.getSlot()).accept(event);
+					}
+				}
+
+				//Check if a shift clicked item has been shifted into an empty locked slot
+				if (event.getClick() == ClickType.SHIFT_RIGHT || event.getClick() == ClickType.SHIFT_LEFT) {
+
+					if (menu.updateTask != null)
+						menu.updateTask.run();
+
+					if (event.getClickedInventory().getType() == InventoryType.PLAYER) { //Check if a player is shift clicking IN to the inventory instead of OUT
+						ItemStack item = new ItemStack(Objects.requireNonNull(event.getCurrentItem()));
+						item.setAmount(1); //Set the amount to 1 to avoid itemstack mismatching
+
+						for (int i = 0; i < menu.getSize(); i++) {
+
+							if (menu.inv.getItem(i) != null) {
+								ItemStack temp = new ItemStack(menu.inv.getItem(i));
+
+								temp.setAmount(1);
+
+								if (Objects.equals(temp, item) && menu.lockedSlots.get(i)) {
+									event.setCancelled(true); //If the clicked item equals the current item, cancels the shift click
+								}
+							}
+						}
+					} else {
+						if (menu.slotRunnables.get(event.getSlot()) != null) {
+							menu.slotRunnables.get(event.getSlot()).accept(event);
+						}
+					}
+
+					if (menu.lockedSlots.get(menu.inv.firstEmpty())) {
+						event.setCancelled(true);
+					}
+				}
+
+				if (event.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
+					event.setCancelled(true);
+				}
+			}
+		}
 	}
 
 	@EventHandler
-	public void inventoryOpenEvent(InventoryOpenEvent event) {
-		String id = event.getPlayer().getOpenInventory().getTitle().contains("ID:") ? event.getPlayer().getOpenInventory().getTitle().split("ID:")[1] : "";
+	public void onInventoryDrag(InventoryDragEvent event) {
+		Player player = (Player) event.getWhoClicked();
+		if (MenuHandler.isViewing(player) && !event.getInventory().getType().equals(InventoryType.PLAYER)) {
+			CursedMenu menu = MenuHandler.getInventory((Player) event.getWhoClicked());
+
+			if (menu.updateTask != null) {
+				menu.updateTask.run();
+			}
+
+			for (int slot : event.getRawSlots()) {
+				if (slot >= player.getOpenInventory().getTopInventory().getSize())
+					continue;
+
+
+				if (menu.lockedSlots.get(slot)) {
+					event.setCancelled(true);
+					break;
+				}
+			}
+		}
+	}
+
+	@EventHandler
+	public void onInventoryClose(InventoryCloseEvent event) {
+		if (MenuHandler.isViewing((Player) event.getPlayer())) {
+			CursedMenu menu = MenuHandler.getInventory((Player) event.getPlayer());
+
+			menu.stopRunnables();
+
+			if (menu.consumer != null)
+				menu.consumer.accept(event);
+
+			if (menu.closeSound != null)
+				((Player) event.getPlayer()).playSound(event.getPlayer().getLocation(), menu.closeSound, 1, 1);
+
+			MenuHandler.closeInventory((Player) event.getPlayer());
+		}
 	}
 }
