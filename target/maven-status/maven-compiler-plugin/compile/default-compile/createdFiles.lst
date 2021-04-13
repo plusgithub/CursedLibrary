@@ -311,6 +311,7 @@ com\cursedplanet\cursedlibrary\lib\menu\button\ButtonReturnBack.class
 com\cursedplanet\cursedlibrary\lib\menu\model\MenuQuantity.class
 com\cursedplanet\cursedlibrary\lib\DefaultFontInfo.class
 com\cursedplanet\cursedlibrary\menu\MenuListeners.class
+com\cursedplanet\cursedlibrary\menu\TempCraftingMenu.class
 com\cursedplanet\cursedlibrary\lib\model\HookManager.class
 com\cursedplanet\cursedlibrary\lib\Common$MapToListConverter.class
 com\cursedplanet\cursedlibrary\lib\collection\expiringmap\ExpiringValue.class

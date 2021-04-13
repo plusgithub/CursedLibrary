@@ -2,6 +2,7 @@ package com.cursedplanet.cursedlibrary.menu;
 
 import com.cursedplanet.cursedlibrary.LibraryPlugin;
 import com.cursedplanet.cursedlibrary.lib.Common;
+import com.cursedplanet.cursedlibrary.lib.PlayerUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -35,6 +36,7 @@ public class CursedMenu {
 
 	@Getter
 	protected int size;
+	@Getter
 	protected String title;
 	protected String id;
 
@@ -90,6 +92,22 @@ public class CursedMenu {
 
 	public ItemStack getItemAt(int slot) {
 		return inv.getItem(slot);
+	}
+
+	public void updateTitle(String title) {
+		for (HumanEntity player : getViewers()) {
+			PlayerUtil.updateInventoryTitle((Player) player, title);
+		}
+	}
+
+	public void updateTitleTimed(String title, int ticks) {
+		String oldTitle = getTitle();
+		
+		updateTitle(title);
+
+		Common.runLater(ticks, () -> {
+			updateTitle(oldTitle);
+		});
 	}
 
 
@@ -358,9 +376,9 @@ public class CursedMenu {
 
 	private int getFillableSlots() {
 		int fillableSlots = 0;
-		for (int i = 0; i < pagePattern.length; i++) {
-			for (int o = 0; o < pagePattern[i].toCharArray().length; o++) {
-				if (pagePattern[i].toCharArray()[o] == '#')
+		for (String s : pagePattern) {
+			for (int o = 0; o < s.toCharArray().length; o++) {
+				if (s.toCharArray()[o] == '#')
 					fillableSlots++;
 			}
 		}
