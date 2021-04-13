@@ -27,7 +27,7 @@ public class CursedMenu {
 	private HashMap<CursedMenu, HashMap<Runnable, String>> runnables;
 	private HashMap<CursedMenu, List<BukkitTask>> runningTasks;
 	protected Consumer<InventoryCloseEvent> consumer;
-	protected Runnable updateTask;
+	protected Consumer<InventoryClickEvent> updateTask;
 
 	protected LinkedHashMap<Integer, ItemStack> contents;
 	protected Inventory inv;
@@ -102,7 +102,7 @@ public class CursedMenu {
 
 	public void updateTitleTimed(String title, int ticks) {
 		String oldTitle = getTitle();
-		
+
 		updateTitle(title);
 
 		Common.runLater(ticks, () -> {
@@ -272,7 +272,7 @@ public class CursedMenu {
 		this.consumer = consumer;
 	}
 
-	public void addClickUpdate(Runnable task) {
+	public void addClickUpdate(Consumer<InventoryClickEvent> task) {
 		this.updateTask = task;
 	}
 

@@ -21,7 +21,7 @@ public class MenuListeners implements Listener {
 				if (!event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
 
 					if (menu.updateTask != null)
-						menu.updateTask.run();
+						menu.updateTask.accept(event);
 
 					//Check for locked slots
 					if (menu.lockedSlots.get(event.getSlot()))
@@ -37,7 +37,7 @@ public class MenuListeners implements Listener {
 				if (event.getClick() == ClickType.SHIFT_RIGHT || event.getClick() == ClickType.SHIFT_LEFT) {
 
 					if (menu.updateTask != null)
-						menu.updateTask.run();
+						menu.updateTask.accept(event);
 
 					if (event.getClickedInventory().getType() == InventoryType.PLAYER) { //Check if a player is shift clicking IN to the inventory instead of OUT
 						ItemStack item = new ItemStack(Objects.requireNonNull(event.getCurrentItem()));
@@ -79,9 +79,9 @@ public class MenuListeners implements Listener {
 		if (MenuHandler.isViewing(player) && !event.getInventory().getType().equals(InventoryType.PLAYER)) {
 			CursedMenu menu = MenuHandler.getInventory((Player) event.getWhoClicked());
 
-			if (menu.updateTask != null) {
-				menu.updateTask.run();
-			}
+			//if (menu.updateTask != null) {
+			//	menu.updateTask.accept(event);
+			//}
 
 			for (int slot : event.getRawSlots()) {
 				if (slot >= player.getOpenInventory().getTopInventory().getSize())
