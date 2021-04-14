@@ -20,7 +20,7 @@ public class MenuItem {
 	}
 
 	protected MenuItem empty() {
-		menu.contents.put(slot, item);
+		//menu.contents.put(slot, item);
 		menu.inv.setItem(slot, item);
 		menu.lockedSlots.put(slot, false);
 		return clickable((e) -> {
@@ -28,7 +28,7 @@ public class MenuItem {
 	}
 
 	protected MenuItem clickable(Consumer<InventoryClickEvent> consumer) {
-		menu.contents.put(slot, item);
+		//menu.contents.put(slot, item);
 		menu.inv.setItem(slot, item);
 		menu.slotRunnables.put(slot, consumer);
 		menu.lockedSlots.put(slot, false);

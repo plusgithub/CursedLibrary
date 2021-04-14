@@ -54,7 +54,7 @@ public class TestTwoMenu extends CursedMenu {
 		setPattern("?&?&?&?&?", "&0000000&", "?0000000?", "&0000000&", "?0000000?", "&?&?&?&?&");
 		assignPatternItem('?', new ItemStack(Material.BLUE_STAINED_GLASS_PANE));
 		assignPatternItem('&', new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE));
-		lockFilled(fillPattern());
+		lockFilled(fillPatternStatic());
 
 		setPagePattern("&&&&&&&&&", "&#######&", "&#######&", "&#######&", "&#######&", "&#######&", "&&&&&&&&&");
 
@@ -65,16 +65,16 @@ public class TestTwoMenu extends CursedMenu {
 		}
 
 		addPageItems(items);
-		lockFilled(fillPages());
+		lockFilled(fillPagesStatic());
 
 		addClickable(51, ItemCreator.of(CompMaterial.ARROW, "&aNext page").build().makeSurvival(), (e) -> {
 			nextPage();
-			lockFilled(fillPages());
+			lockFilled(fillPagesStatic());
 		}).lock();
 
 		addClickable(47, ItemCreator.of(CompMaterial.ARROW, "&cPrevious page").build().makeSurvival(), (e) -> {
 			previousPage();
-			lockFilled(fillPages());
+			lockFilled(fillPagesStatic());
 		}).lock();
 
 	}

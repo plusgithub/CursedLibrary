@@ -24,12 +24,12 @@ public class CursedMenu {
 
 	//private MenuBuilder builder;
 	//protected InventoryCreator inventory;
-	private HashMap<CursedMenu, HashMap<Runnable, String>> runnables;
-	private HashMap<CursedMenu, List<BukkitTask>> runningTasks;
+	private final HashMap<CursedMenu, HashMap<Runnable, String>> runnables;
+	private final HashMap<CursedMenu, List<BukkitTask>> runningTasks;
 	protected Consumer<InventoryCloseEvent> consumer;
 	protected Consumer<InventoryClickEvent> updateTask;
 
-	protected LinkedHashMap<Integer, ItemStack> contents;
+	//protected LinkedHashMap<Integer, ItemStack> contents;
 	protected Inventory inv;
 	protected LinkedHashMap<Integer, Boolean> lockedSlots;
 	protected LinkedHashMap<Integer, Consumer<InventoryClickEvent>> slotRunnables;
@@ -48,7 +48,7 @@ public class CursedMenu {
 	protected Sound closeSound;
 
 	private String[] pattern;
-	private HashMap<Character, ItemStack> assignedPatterns;
+	private final HashMap<Character, ItemStack> assignedPatterns;
 
 	private String[] pagePattern;
 	private ItemStack[] pageItems;
@@ -56,8 +56,8 @@ public class CursedMenu {
 
 	public CursedMenu(int size, String title, String id) {
 
-		runnables = new HashMap<>();
-		runningTasks = new HashMap<>();
+		this.runnables = new HashMap<>();
+		this.runningTasks = new HashMap<>();
 		this.size = size;
 		this.title = Common.colorize(title);
 		this.id = id;
@@ -71,16 +71,16 @@ public class CursedMenu {
 		this.pageItems = null;
 		this.currentPage = 0;
 
-		consumer = null;
+		this.consumer = null;
 
-		inv = Bukkit.createInventory(null, this.size, this.title);
+		this.inv = Bukkit.createInventory(null, this.size, this.title);
 
-		contents = new LinkedHashMap<>();
-		lockedSlots = new LinkedHashMap<>();
-		slotRunnables = new LinkedHashMap<>();
+		//contents = new LinkedHashMap<>();
+		this.lockedSlots = new LinkedHashMap<>();
+		this.slotRunnables = new LinkedHashMap<>();
 
 		for (int i = 0; i < size; i++) {
-			contents.put(i, new ItemStack(Material.AIR));
+			//contents.put(i, new ItemStack(Material.AIR));
 			lockedSlots.put(i, false);
 			slotRunnables.put(i, null);
 		}
@@ -152,15 +152,15 @@ public class CursedMenu {
 	}
 
 
-	public MenuItem[] fillEmpty(ItemStack item) {
-		return fillEmpty(item, new ArrayList<>());
+	public MenuItem[] fillStatic(ItemStack item) {
+		return fillStatic(item, new ArrayList<>());
 	}
 
-	public MenuItem[] fillEmpty(ItemStack item, Integer... skippedSlots) {
-		return fillEmpty(item, (List<Integer>) Arrays.asList(skippedSlots));
+	public MenuItem[] fillStatic(ItemStack item, Integer... skippedSlots) {
+		return fillStatic(item, (List<Integer>) Arrays.asList(skippedSlots));
 	}
 
-	public MenuItem[] fillEmpty(ItemStack item, List<Integer> skippedSlots) {
+	public MenuItem[] fillStatic(ItemStack item, List<Integer> skippedSlots) {
 		int i = 0;
 
 		MenuItem[] menuItems = new MenuItem[getEmptyAmount()];
@@ -168,6 +168,30 @@ public class CursedMenu {
 		while (i < getSize()) {
 			if (inv.getItem(i) == null && !skippedSlots.contains(i)) {
 				menuItems[i] = new MenuItem(i, item, this).empty();
+			}
+			i++;
+		}
+
+		return menuItems;
+	}
+
+
+	public MenuItem[] fillClickable(ItemStack item, Consumer<InventoryClickEvent> consumer) {
+		return fillClickable(item, new ArrayList<>(), consumer);
+	}
+
+	public MenuItem[] fillClickable(ItemStack item, Consumer<InventoryClickEvent> consumer, Integer... skippedSlots) {
+		return fillClickable(item, (List<Integer>) Arrays.asList(skippedSlots), consumer);
+	}
+
+	public MenuItem[] fillClickable(ItemStack item, List<Integer> skippedSlots, Consumer<InventoryClickEvent> consumer) {
+		int i = 0;
+
+		MenuItem[] menuItems = new MenuItem[getEmptyAmount()];
+
+		while (i < getSize()) {
+			if (inv.getItem(i) == null && !skippedSlots.contains(i)) {
+				menuItems[i] = new MenuItem(i, item, this).clickable(consumer);
 			}
 			i++;
 		}
@@ -184,11 +208,11 @@ public class CursedMenu {
 		return i;
 	}
 
-	public MenuItem[] fillBorders(ItemStack item) {
-		return fillBorders(item, 0, getSize() - 1);
+	public MenuItem[] fillBordersStatic(ItemStack item) {
+		return fillBordersStatic(item, 0, getSize() - 1);
 	}
 
-	public MenuItem[] fillBorders(ItemStack item, int startSlot, int endSlot) {
+	public MenuItem[] fillBordersStatic(ItemStack item, int startSlot, int endSlot) {
 		int iterator = startSlot;
 
 		MenuItem[] menuItems = new MenuItem[getSize()];
@@ -214,7 +238,37 @@ public class CursedMenu {
 		return menuItems;
 	}
 
-	public MenuItem[] fillRectangle(ItemStack item, int startSlot, int endSlot) {
+	public MenuItem[] fillBordersClickable(ItemStack item, Consumer<InventoryClickEvent> consumer) {
+		return fillBordersClickable(item, 0, getSize() - 1, consumer);
+	}
+
+	public MenuItem[] fillBordersClickable(ItemStack item, int startSlot, int endSlot, Consumer<InventoryClickEvent> consumer) {
+		int iterator = startSlot;
+
+		MenuItem[] menuItems = new MenuItem[getSize()];
+
+		int length = (endSlot - startSlot) % 9;
+		int corner1 = startSlot + length;
+		int corner2 = endSlot - length;
+
+		while (iterator <= endSlot) {
+
+			boolean b = iterator % 9 == startSlot % 9 || iterator % 9 == endSlot % 9;
+
+
+			if (iterator >= startSlot && iterator <= corner1)
+				menuItems[iterator] = addClickable(iterator, item, consumer);
+			if (iterator >= corner2 && iterator <= endSlot)
+				menuItems[iterator] = addClickable(iterator, item, consumer);
+			if (b)
+				menuItems[iterator] = addClickable(iterator, item, consumer);
+
+			iterator++;
+		}
+		return menuItems;
+	}
+
+	public MenuItem[] fillRectangleStatic(ItemStack item, int startSlot, int endSlot) {
 		int iterator = startSlot;
 
 		MenuItem[] menuItems = new MenuItem[getSize()];
@@ -225,6 +279,23 @@ public class CursedMenu {
 
 			if (b)
 				menuItems[iterator] = addStatic(iterator, item);
+
+			iterator++;
+		}
+		return menuItems;
+	}
+
+	public MenuItem[] fillRectangleClickable(ItemStack item, int startSlot, int endSlot, Consumer<InventoryClickEvent> consumer) {
+		int iterator = startSlot;
+
+		MenuItem[] menuItems = new MenuItem[getSize()];
+
+		while (iterator <= endSlot) {
+			boolean b = iterator % 9 <= endSlot % 9 && iterator % 9 >= startSlot % 9;
+
+
+			if (b)
+				menuItems[iterator] = addClickable(iterator, item, consumer);
 
 			iterator++;
 		}
@@ -292,12 +363,23 @@ public class CursedMenu {
 		assignedPatterns.put(character, item);
 	}
 
-	public MenuItem[] fillPattern() {
+	public MenuItem[] fillPatternStatic() {
 		ItemStack empty = new ItemStack(Material.AIR);
 		MenuItem[] menuItems = new MenuItem[pattern.length * 9];
 		for (int i = 0; i < pattern.length; i++) {
 			for (int o = 0; o < pattern[i].toCharArray().length; o++) {
 				menuItems[(i * 9) + o] = addStatic((i * 9) + o, assignedPatterns.getOrDefault(pattern[i].toCharArray()[o], empty));
+			}
+		}
+		return menuItems;
+	}
+
+	public MenuItem[] fillPatternClickable(Consumer<InventoryClickEvent> consumer) {
+		ItemStack empty = new ItemStack(Material.AIR);
+		MenuItem[] menuItems = new MenuItem[pattern.length * 9];
+		for (int i = 0; i < pattern.length; i++) {
+			for (int o = 0; o < pattern[i].toCharArray().length; o++) {
+				menuItems[(i * 9) + o] = addStatic((i * 9) + o, assignedPatterns.getOrDefault(pattern[i].toCharArray()[o], empty)).clickable(consumer);
 			}
 		}
 		return menuItems;
@@ -326,10 +408,9 @@ public class CursedMenu {
 		return single.charAt(slot) == '#';
 	}
 
-	public MenuItem[] fillPages() {
+	public MenuItem[] fillPagesStatic() {
 		int itemsPerPage = getFillableSlots();
 		int startSlot = getStartSlot() - 1;
-		Common.log(String.valueOf(currentPage));
 		int firstIndex = itemsPerPage * currentPage;
 		//int lastIndex = firstIndex + itemsPerPage;
 		MenuItem[] menuItems = new MenuItem[itemsPerPage];
@@ -337,6 +418,21 @@ public class CursedMenu {
 		for (int i = 0; i < itemsPerPage; i++) {
 			if (isPagedSlot(i + startSlot)) {
 				menuItems[i] = addStatic(i + startSlot, pageItems[firstIndex + i]);
+			}
+		}
+		return menuItems;
+	}
+
+	public MenuItem[] fillPagesClickable(Consumer<InventoryClickEvent> consumer) {
+		int itemsPerPage = getFillableSlots();
+		int startSlot = getStartSlot() - 1;
+		int firstIndex = itemsPerPage * currentPage;
+		//int lastIndex = firstIndex + itemsPerPage;
+		MenuItem[] menuItems = new MenuItem[itemsPerPage];
+
+		for (int i = 0; i < itemsPerPage; i++) {
+			if (isPagedSlot(i + startSlot)) {
+				menuItems[i] = addClickable(i + startSlot, pageItems[firstIndex + i], consumer);
 			}
 		}
 		return menuItems;
