@@ -61,8 +61,10 @@ public class MenuListeners implements Listener {
 						}
 					}
 
-					if (menu.lockedSlots.get(menu.inv.firstEmpty())) {
-						event.setCancelled(true);
+					if (menu.lockedSlots.get(menu.inv.firstEmpty()) != null) {
+						if (menu.lockedSlots.get(menu.inv.firstEmpty())) {
+							event.setCancelled(true);
+						}
 					}
 				}
 
