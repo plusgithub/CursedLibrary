@@ -56,9 +56,10 @@ public class TestTwoMenu extends CursedMenu {
 		assignPatternItem('&', new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE));
 		lockFilled(fillPatternStatic());
 
-		setPagePattern("&&&&&&&&&", "&#######&", "&#######&", "&#######&", "&#######&", "&#######&", "&&&&&&&&&");
+		setPagePattern("&#######&", "&&#####&&", "&&&###&&&", "&&&&#&&&&", "&&&&&&&&&");
 
 		ItemStack[] items = new ItemStack[Material.values().length];
+
 
 		for (int i = 0; i < Material.values().length; i++) {
 			items[i] = new ItemStack(Material.values()[i]);

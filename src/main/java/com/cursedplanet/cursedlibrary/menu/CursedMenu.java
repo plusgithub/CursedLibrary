@@ -50,7 +50,8 @@ public class CursedMenu {
 	private String[] pattern;
 	private final HashMap<Character, ItemStack> assignedPatterns;
 
-	private String[] pagePattern;
+	//private String[] pagePattern;
+	private String pagePatternSingle;
 	private ItemStack[] pageItems;
 	private Integer currentPage;
 
@@ -67,7 +68,8 @@ public class CursedMenu {
 		this.assignedPatterns = new HashMap<>();
 		this.updateTask = null;
 
-		this.pagePattern = null;
+		//this.pagePattern = null;
+		this.pagePatternSingle = null;
 		this.pageItems = null;
 		this.currentPage = 0;
 
@@ -386,7 +388,7 @@ public class CursedMenu {
 	}
 
 	public void setPagePattern(String... rowPatterns) {
-		this.pagePattern = rowPatterns;
+		this.pagePatternSingle = String.join("", rowPatterns);
 	}
 
 	public void addPageItems(ItemStack[] items) {
@@ -394,30 +396,34 @@ public class CursedMenu {
 	}
 
 	private int getStartSlot() {
-		String single = String.join("", pagePattern);
 
-		for (int o = 0; o < single.toCharArray().length; o++) {
-			if (single.charAt(o) == '#')
+		for (int o = 0; o < pagePatternSingle.toCharArray().length; o++) {
+			if (pagePatternSingle.charAt(o) == '#')
 				return o;
 		}
 		return 0;
 	}
 
 	private boolean isPagedSlot(int slot) {
-		String single = String.join("", pagePattern);
-		return single.charAt(slot) == '#';
+		return pagePatternSingle.charAt(slot) == '#';
 	}
 
 	public MenuItem[] fillPagesStatic() {
-		int itemsPerPage = getFillableSlots();
-		int startSlot = getStartSlot() - 1;
-		int firstIndex = itemsPerPage * currentPage;
-		//int lastIndex = firstIndex + itemsPerPage;
-		MenuItem[] menuItems = new MenuItem[itemsPerPage];
 
-		for (int i = 0; i < itemsPerPage; i++) {
+		int itemsPerPage = getFillableSlots();
+		int startSlot = getStartSlot();
+		int firstIndex = itemsPerPage * currentPage;
+		int slots = getSlots() - (getSlots() - pagePatternSingle.length()) - 1;
+		//int lastIndex = firstIndex + itemsPerPage;
+		MenuItem[] menuItems = new MenuItem[slots];
+
+		for (int i = 0; i < slots; i++) {
 			if (isPagedSlot(i + startSlot)) {
-				menuItems[i] = addStatic(i + startSlot, pageItems[firstIndex + i]);
+				try {
+					menuItems[i] = addStatic(i + startSlot, pageItems[firstIndex + i]);
+				} catch (Exception e) {
+					menuItems[i] = addStatic(i + startSlot, new ItemStack(Material.AIR));
+				}
 			}
 		}
 		return menuItems;
@@ -425,14 +431,17 @@ public class CursedMenu {
 
 	public MenuItem[] fillPagesClickable(Consumer<InventoryClickEvent> consumer) {
 		int itemsPerPage = getFillableSlots();
-		int startSlot = getStartSlot() - 1;
+		int startSlot = getStartSlot();
 		int firstIndex = itemsPerPage * currentPage;
-		//int lastIndex = firstIndex + itemsPerPage;
-		MenuItem[] menuItems = new MenuItem[itemsPerPage];
+		MenuItem[] menuItems = new MenuItem[getSlots()];
 
-		for (int i = 0; i < itemsPerPage; i++) {
+		for (int i = 0; i < getSlots(); i++) {
 			if (isPagedSlot(i + startSlot)) {
-				menuItems[i] = addClickable(i + startSlot, pageItems[firstIndex + i], consumer);
+				try {
+					menuItems[i] = addClickable(i + startSlot, pageItems[firstIndex + i], consumer);
+				} catch (Exception e) {
+					menuItems[i] = addStatic(i + startSlot, new ItemStack(Material.AIR));
+				}
 			}
 		}
 		return menuItems;
@@ -455,8 +464,9 @@ public class CursedMenu {
 	}
 
 	public void nextPage() {
-		if (!((getPage() + 1) > getMaxPages()))
+		if (!((getPage() + 1) >= getMaxPages())) {
 			this.currentPage++;
+		}
 	}
 
 	public void previousPage() {
@@ -472,12 +482,12 @@ public class CursedMenu {
 
 	private int getFillableSlots() {
 		int fillableSlots = 0;
-		for (String s : pagePattern) {
-			for (int o = 0; o < s.toCharArray().length; o++) {
-				if (s.toCharArray()[o] == '#')
-					fillableSlots++;
-			}
+
+		for (int i = 0; i < pagePatternSingle.length(); i++) {
+			if (pagePatternSingle.charAt(i) == '#')
+				fillableSlots++;
 		}
+
 		return fillableSlots;
 	}
 
@@ -485,6 +495,10 @@ public class CursedMenu {
 		for (int i = 0; i < getSize(); i++) {
 			addStatic(i, new ItemStack(Material.AIR));
 		}
+	}
+
+	public int getSlots() {
+		return getSize() - 1;
 	}
 
 
