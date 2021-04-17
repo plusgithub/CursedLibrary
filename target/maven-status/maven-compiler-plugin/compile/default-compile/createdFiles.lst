@@ -394,6 +394,7 @@ com\cursedplanet\cursedlibrary\lib\model\ConfigItems.class
 com\cursedplanet\cursedlibrary\lib\menu\button\ButtonRemove$ButtonRemoveAction.class
 com\cursedplanet\cursedlibrary\inputs\SignMenuFactory$1.class
 com\cursedplanet\cursedlibrary\lib\collection\expiringmap\NamedThreadFactory.class
+com\cursedplanet\cursedlibrary\updater\AutoUpdate.class
 com\cursedplanet\cursedlibrary\lib\model\SimpleEnchantmentTarget$2.class
 com\cursedplanet\cursedlibrary\lib\TabUtil.class
 com\cursedplanet\cursedlibrary\lib\remain\CompItemFlag.class

@@ -481,6 +481,12 @@ public class CursedMenu {
 		return fillableSlots;
 	}
 
+	public void clearInventory() {
+		for (int i = 0; i < getSize(); i++) {
+			addStatic(i, new ItemStack(Material.AIR));
+		}
+	}
+
 
 	public void display(Player player) {
 		MenuHandler.openInventory(player, this);
