@@ -418,7 +418,7 @@ public class CursedMenu {
 		MenuItem[] menuItems = new MenuItem[slots];
 
 		for (int i = 0; i < slots; i++) {
-			if (isPagedSlot(i + startSlot)) {
+			if ((i + startSlot) < getSize() && isPagedSlot(i + startSlot)) {
 				try {
 					menuItems[i] = addStatic(i + startSlot, pageItems[firstIndex + i]);
 				} catch (Exception e) {
@@ -434,10 +434,10 @@ public class CursedMenu {
 		int startSlot = getStartSlot();
 		int firstIndex = itemsPerPage * currentPage;
 		int slots = getSlots() - (getSlots() - pagePatternSingle.length()) - 1;
-		MenuItem[] menuItems = new MenuItem[getSlots()];
+		MenuItem[] menuItems = new MenuItem[slots];
 
 		for (int i = 0; i < slots; i++) {
-			if (isPagedSlot(i + startSlot)) {
+			if ((i + startSlot) < getSize() && isPagedSlot(i + startSlot)) {
 				try {
 					menuItems[i] = addClickable(i + startSlot, pageItems[firstIndex + i], consumer);
 				} catch (Exception e) {
