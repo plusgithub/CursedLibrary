@@ -433,9 +433,10 @@ public class CursedMenu {
 		int itemsPerPage = getFillableSlots();
 		int startSlot = getStartSlot();
 		int firstIndex = itemsPerPage * currentPage;
+		int slots = getSlots() - (getSlots() - pagePatternSingle.length()) - 1;
 		MenuItem[] menuItems = new MenuItem[getSlots()];
 
-		for (int i = 0; i < getSlots(); i++) {
+		for (int i = 0; i < slots; i++) {
 			if (isPagedSlot(i + startSlot)) {
 				try {
 					menuItems[i] = addClickable(i + startSlot, pageItems[firstIndex + i], consumer);
