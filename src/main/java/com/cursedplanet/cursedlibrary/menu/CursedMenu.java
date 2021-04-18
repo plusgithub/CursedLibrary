@@ -495,12 +495,12 @@ public class CursedMenu {
 	public void clearInventory(boolean defaultLocked) {
 		ItemStack air = new ItemStack(Material.AIR);
 		if (defaultLocked) {
-			for (int i = 0; i < getSlots(); i++) {
-				addStatic(i, air).lock();
+			for (int i = 0; i < getSize(); i++) {
+				addStatic(i, null).lock();
 			}
 		} else {
 			for (int i = 0; i < getSlots(); i++) {
-				addStatic(i, air);
+				addStatic(i, null);
 			}
 		}
 
@@ -509,6 +509,12 @@ public class CursedMenu {
 		for (int i = 0; i < getSize(); i++) {
 			addStatic(i, air);
 		}*/
+	}
+
+	public void updateInventory() {
+		for (HumanEntity player : getViewers()) {
+			((Player) player).updateInventory();
+		}
 	}
 
 	public int getSlots() {
