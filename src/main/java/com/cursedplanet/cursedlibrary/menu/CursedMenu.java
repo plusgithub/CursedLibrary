@@ -492,7 +492,10 @@ public class CursedMenu {
 	}
 
 	public void clearInventory() {
-		inv.clear();
+		ItemStack air = new ItemStack(Material.AIR);
+		for (int i = 0; i < getSize(); i++) {
+			addStatic(i, air);
+		}
 	}
 
 	public int getSlots() {
