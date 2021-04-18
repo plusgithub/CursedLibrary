@@ -39,6 +39,7 @@ Plugin.signMenuFactory
 				.reopenIfFail()
 				.open(getPlayer());
  */
+
 public final class SignMenuFactory {
 
 	private static final int ACTION_INDEX = 9;

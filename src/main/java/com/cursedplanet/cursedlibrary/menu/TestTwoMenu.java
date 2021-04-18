@@ -3,9 +3,13 @@ package com.cursedplanet.cursedlibrary.menu;
 import com.cursedplanet.cursedlibrary.lib.menu.model.ItemCreator;
 import com.cursedplanet.cursedlibrary.lib.remain.CompMaterial;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class TestTwoMenu extends CursedMenu {
+
 
 	public TestTwoMenu() {
 		super(54, "Cool menu", "cool_menu");
@@ -74,8 +78,9 @@ public class TestTwoMenu extends CursedMenu {
 		}).lock();
 
 		addClickable(47, ItemCreator.of(CompMaterial.ARROW, "&cPrevious page").build().makeSurvival(), (e) -> {
-			previousPage();
-			lockFilled(fillPagesStatic());
+			MenuPrompt.engageInPrompt((Player) getViewers().get(0), this, 100, string -> {
+				addStatic(47, new ItemStack(Objects.requireNonNull(Material.getMaterial(string))));
+			}, "", "&b&lType your input below:", "");
 		}).lock();
 
 	}
