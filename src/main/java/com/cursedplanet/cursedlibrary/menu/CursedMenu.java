@@ -492,11 +492,23 @@ public class CursedMenu {
 		return fillableSlots;
 	}
 
-	public void clearInventory() {
+	public void clearInventory(boolean defaultLocked) {
 		ItemStack air = new ItemStack(Material.AIR);
+		if (defaultLocked) {
+			for (int i = 0; i < getSlots(); i++) {
+				addStatic(i, air).lock();
+			}
+		} else {
+			for (int i = 0; i < getSlots(); i++) {
+				addStatic(i, air);
+			}
+		}
+
+
+		/*ItemStack air = new ItemStack(Material.AIR);
 		for (int i = 0; i < getSize(); i++) {
 			addStatic(i, air);
-		}
+		}*/
 	}
 
 	public int getSlots() {
