@@ -32,7 +32,7 @@ public class MenuItem {
 		menu.inv.setItem(slot, item);
 		menu.slotRunnables.put(slot, consumer);
 		menu.lockedSlots.put(slot, false);
-		menu.updateInventory();
+		//menu.updateInventory();
 		return new MenuItem(slot, item, menu);
 	}
 
